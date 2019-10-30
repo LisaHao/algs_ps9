@@ -1,0 +1,86 @@
+Algorithm:
+My algorithm first finds all the possible rotations for each box from the input file. I then rotate the boxes three times to get each of the possible dimensions. I store the boxes in my list with the smaller value as the first number, the larger value as the second number and the height as the last number. I sorted these boxes in non-decreasing order since I know that the dimensions of each box has to be smaller than the dimesions of the box below it.
+Then I use dynamic programming to find the maximum height and store the boxes used to get to that height.
+
+Each entry in my dynamic programming table (maxHeight) either uses or loses the current box I're examining. If it "uses" the current box, then I add the height of the current box and look for the next box with smaller dimensions. If I "lose it", then I just look at the next box I can use.
+This algorithm is correct because I can only "use" or "lose" each box. I need to make sure that my solution follows the dimension restrictions, which I do by only looking at boxes that have smaller dimensions than the boxes I have already chosen.
+
+The expected running time:
+- Sorting the entries should take O(logn) time. 
+- Checking against the boxes before should take O(n^2) time since we check each entry with entries before it. 
+
+Design Decision:
+I decided to look at smaller boxes first and find bigger boxes that would go "underneath" it. I chose to do it this way because the desired output has the boxes listed from largest to smallest. Implementing it this way made it easier to print in the desired format, even though it seems less intuitive than the other way around.
+
+Code Implementation:
+The code mostly implements the algorithm in the highTower(allBlocks) function. The highestTower(contents) function just helps with the initial prep work of creating the rotations and sorting the blocks. The highTower() function creates two tables, one to track the maxHeight and the other to track the blocks that made up that maxHeight. The maxHeight[i] gives the maximum height the tower would reach if we utilized the ith block.
+The maxHeight is found by taking advantage of the optimal substructure. We look at all of the blocks that have smaller dimension than our current block to see which stack we should combine our current block with in order to create the maxHeight. Once we find that, we need to update our maxHeight as well as update the list that keeps track of which blocks make up our maxHeight.
+
+
+Testing:
+I tested the code with three different inputs: the example in the problem sheet, the blocks10.1.in and the blocks100.1.in. I checked that the dimensions of each block Ire correct in relation to the other blocks and that the ansIrs made sense.
+Results from testing  code with the example in the problem set:
+20
+6 8 2
+2 6 8
+1 4 10
+
+Results from testing code with blocks10.1.in:
+5588
+793 915 335
+782 862 530
+530 782 862
+492 649 386
+429 567 368
+426 540 926
+386 492 649
+368 429 567
+362 421 27
+172 211 736
+123 135 67
+67 123 135
+
+
+Results from testing code with blocks100.1.in:
+26595
+917 996 917
+914 987 856
+899 959 996
+862 956 873
+859 936 365
+856 927 567
+846 921 451
+840 904 818
+829 871 732
+818 840 904
+793 818 235
+773 813 668
+669 786 954
+668 773 813
+661 730 878
+644 725 772
+619 689 444
+606 613 538
+545 582 814
+539 570 795
+488 555 379
+432 551 437
+426 540 926
+416 465 708
+404 443 763
+378 434 467
+368 429 567
+340 422 311
+315 370 413
+311 340 422
+305 320 736
+280 301 756
+258 282 924
+178 276 808
+172 211 736
+163 199 981
+95 190 926
+69 167 58
+67 135 123
+34 124 764
+
