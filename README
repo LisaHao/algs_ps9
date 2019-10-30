@@ -1,0 +1,8 @@
+README
+
+Types of Files:
+ps9.py contains the code to find the maximum height & the blocks
+documentation.txt contains my answers for the documentation
+
+Compile & run code with following command:
+python3 ps9.py <infile.txt> <outfile.txt>
